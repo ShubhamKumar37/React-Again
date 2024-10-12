@@ -11,6 +11,19 @@ function App() {
   console.log("This is the currency data type and exact data = ", typeof currencyData, currencyData);
   const options = Object.keys(currencyData);
 
+  function onAmountChange(value)
+  {
+    setAmount(value);
+    // console.log(event?.target?.value);  
+    console.log(value);   
+    setToAmount(value * currencyData[to]);
+  }
+
+  function onCurrenyChange(value)
+  {
+    setFrom(value);
+  }
+
   return (
     <div className="w-full h-screen flex flex-row justify-center items-center "
       style={{
@@ -19,6 +32,26 @@ function App() {
       }}
     
     >
+      <div className="bg-white p-3 rounded-lg">
+        <InputBox
+          label="From"
+          amount={amount}
+          onAmountChange={onAmountChange}
+          onCurrencyChange={onCurrencyChange}
+          currencyOptions={options}
+          editAmount={true}
+          />
+        <InputBox
+          label="To"
+          amount={toAmount}
+          onAmountChange={onAmountChange}
+          onCurrencyChange={onCurrencyChange}
+          currencyOptions={options}
+          editAmount={false}
+
+        />
+
+      </div>
 
     </div>
   )

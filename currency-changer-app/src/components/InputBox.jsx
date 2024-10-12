@@ -8,7 +8,7 @@ const InputBox = (
         onCurrencyChange,
         currencyOptions = [],
         selectedCurrency = "usd",
-        amountChange = false,
+        editAmount = false,
         className = ""
     }
 
@@ -31,7 +31,7 @@ const InputBox = (
                     placeholder='0'
                     className=''
                     value={amount}
-                    disabled={amountChange}
+                    disabled={!editAmount}
                     onChange={(e) => { onAmountChange && onAmountChange(Number(e.target.value)) }}
                 />
             </label>
