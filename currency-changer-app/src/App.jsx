@@ -8,20 +8,34 @@ function App() {
   const [toAmount, setToAmount] = useState(0);
 
   const currencyData = useCurrencyInfo(from);
-  console.log("This is the currency data type and exact data = ", typeof currencyData, currencyData);
   const options = Object.keys(currencyData);
 
   function onAmountChange(value)
   {
     setAmount(value);
-    // console.log(event?.target?.value);  
-    console.log(value);   
-    setToAmount(value * currencyData[to]);
+    setToAmount((value * currencyData[to]).toFixed(3));
   }
 
-  function onCurrenyChange(value)
+  function onCurrencyChange(value, amount)
   {
     setFrom(value);
+    onAmountChange(amount);
+  }
+  function onToCurrencyChange(value)
+  { 
+    setTo(value);
+  }
+
+  function reverseAll()
+  {
+    let value = to;
+    setTo(from);
+    setFrom(value);
+
+    setAmount(toAmount);
+    setToAmount(amount);
+    // onCurrencyChange(from, toAmount);
+    
   }
 
   return (
@@ -32,7 +46,7 @@ function App() {
       }}
     
     >
-      <div className="bg-white p-3 rounded-lg">
+      <div className="bg-[#e5e5e5] p-3 rounded-lg flex flex-col gap-[2rem]">
         <InputBox
           label="From"
           amount={amount}
@@ -40,12 +54,18 @@ function App() {
           onCurrencyChange={onCurrencyChange}
           currencyOptions={options}
           editAmount={true}
+          selectedCurrency={from}
           />
+
+        <button
+          onClick={reverseAll}
+        >SWAP</button>
         <InputBox
           label="To"
           amount={toAmount}
+          selectedCurrency={to}
           onAmountChange={onAmountChange}
-          onCurrencyChange={onCurrencyChange}
+          onCurrencyChange={onToCurrencyChange}
           currencyOptions={options}
           editAmount={false}
 
