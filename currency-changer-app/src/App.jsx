@@ -10,32 +10,40 @@ function App() {
   const currencyData = useCurrencyInfo(from);
   const options = Object.keys(currencyData);
 
-  function onAmountChange(value)
-  {
+  function onAmountChange(value) {
     setAmount(value);
-    setToAmount((value * currencyData[to]).toFixed(3));
+
+    setTimeout(() => {
+      setToAmount((value * currencyData[to]).toFixed(3));
+
+    }, 10);
   }
 
-  function onCurrencyChange(value, amount)
-  {
+  function onCurrencyChange(value, num) {
     setFrom(value);
-    onAmountChange(amount);
+    if (from === to) {
+      setToAmount(amount);
+      return;
+    }
+    onAmountChange(num);
   }
-  function onToCurrencyChange(value)
-  { 
+  function onToCurrencyChange(value) {
     setTo(value);
+    if (from === to) {
+      setToAmount(amount);
+      return;
+    }
+    setToAmount((amount * currencyData[value]).toFixed(3));
   }
 
-  function reverseAll()
-  {
+  function reverseAll() {
     let value = to;
     setTo(from);
     setFrom(value);
 
     setAmount(toAmount);
     setToAmount(amount);
-    // onCurrencyChange(from, toAmount);
-    
+
   }
 
   return (
@@ -44,7 +52,7 @@ function App() {
         backgroundImage: "url(https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
         backgroundSize: "cover",
       }}
-    
+
     >
       <div className="bg-[#e5e5e5] p-3 rounded-lg flex flex-col gap-[2rem]">
         <InputBox
@@ -55,7 +63,7 @@ function App() {
           currencyOptions={options}
           editAmount={true}
           selectedCurrency={from}
-          />
+        />
 
         <button
           onClick={reverseAll}

@@ -11,7 +11,6 @@ export default function useCurrencyInfo(currency)
         .then((res) => setData(res.data[currency]))
         .catch((err) => console.log(err));
     }, [currency]);
-
     return data;
 
 }
