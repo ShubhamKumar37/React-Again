@@ -4,7 +4,8 @@ import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import Layout from './Layout.jsx'
-import { About, Home, PageNotFound } from './components/index.js'
+import { About, Github, Home, PageNotFound, User } from './components/index.js'
+import { getData } from './components/Github/Github.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +16,10 @@ const router = createBrowserRouter(
           {/* <Route path='hello' element={<Home />} /> */}
         </Route>
       </Route>
+      <Route path='user/' element={<User />}>
+        <Route path=':userId' element={<User />}></Route>
+      </Route>
+      <Route loader={getData} path='/github' element={<Github />} ></Route>
       <Route path='*' element={<PageNotFound />} />
     </>
   )

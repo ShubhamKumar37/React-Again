@@ -6,6 +6,7 @@ const navLinks = [
   ['/about', 'About'],
   ['/contact', 'Contact'],
   ['/github', 'Github'],
+  ['/user', 'User'],
 ];
 
 const Header = () => {
