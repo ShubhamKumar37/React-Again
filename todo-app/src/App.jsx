@@ -1,13 +1,23 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { TodoProvider } from './contexts/todoContext'
+import { TodoForm, TodoItem } from './components';
 
 function App() {
   const [todo, setTodo] = useState([]);
 
-  function addTodo(todo)
+  function addTodo(Todo)
   {
-    setTodo((prev) => [{id: Date.now(), ...todo}, ...prev]);
+    setTodo((prev) =>
+      {
+        if(prev)
+        {
+          return [{id: Date.now(), ...Todo}, ...prev]
+        }
+        return {id: Date.now(), ...Todo}
+
+      }
+    );
   }
 
   function updateTodo(id, todo)
@@ -22,7 +32,9 @@ function App() {
   {
     setTodo((prev) =>
     {
-      prev.filter((item) => item.id !== id);
+      const arr = prev.filter((item) => item.id !== id);
+      if(arr.length === 0) localStorage.removeItem("Todo");
+      return arr;
     })
   }
 
@@ -30,14 +42,15 @@ function App() {
   {
     setTodo((prev) =>
     {
-      prev.map((item) => item.id === id ? {...prev, completed: !item.completed} : item);
+      let arr = prev.map((item) => item.id === id ? {...item, completed: !item.completed} : {...item});
+      return arr; 
     })
   }
 
   useEffect(() =>
     {
-      const storedData = JSON.parse(localStorage.getItem("Todo"));
-      if(storedData && storedData.Todo !== '[]') setTodo(storedData);
+      const storedData = JSON.parse(localStorage.getItem("Todo") === 'undefined' ? '[]' : localStorage.getItem("Todo"));
+      if(storedData && storedData.length > 0) setTodo(storedData);
     }, []);
 
     useEffect(() =>
@@ -47,8 +60,19 @@ function App() {
 
   return (
     <TodoProvider value={{todo, addTodo, updateTodo, deleteTodo, toggleDone}}>
-      <div>
-        Hello
+      <div className='bg-gray-900 w-full h-screen flex flex-col gap-5'>
+        <TodoForm />
+        <div>
+
+        {
+          todo && todo.map((item) =>
+            {
+              return( <div key={item.id} >
+              <TodoItem todo={item} />
+            </div>)
+          })
+        }
+        </div>
       </div>
     </TodoProvider>
   )
