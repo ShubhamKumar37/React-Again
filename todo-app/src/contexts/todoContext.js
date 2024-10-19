@@ -3,7 +3,7 @@ import { createContext } from "react";
 
 
 export const TodoContext = createContext({
-    Todo: [
+    todo: [
         {
             id: 1,
             todo: "",
@@ -16,7 +16,7 @@ export const TodoContext = createContext({
     toggleDone: (id) => {},
 });
 
-export const todoProvider = TodoContext.Provider;
+export const  TodoProvider = TodoContext.Provider;
 
 export default function useTodo()
 {
