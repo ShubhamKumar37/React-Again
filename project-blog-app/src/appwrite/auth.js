@@ -1,5 +1,5 @@
 import { Client, Account} from "appwrite";
-import config from "../config/config";
+import config from "../conf/conf";
 
 
 class Auth_Service
@@ -38,14 +38,13 @@ class Auth_Service
     async loginAccount({email, password}) {
         try
         {
-
+            return await account.createEmailPasswordSession(email, password);
         }
         catch(Error)
         {
             console.log("Error occur while login the user");
             throw Error;    
         }
-        return await account.createEmailPasswordSession(email, password);
     }
     
     async logoutAccount() {
