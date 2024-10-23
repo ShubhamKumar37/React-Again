@@ -91,5 +91,51 @@ export class Service{
             console.log("Error occur while deleting post :: deletePost() :: ", Error);
         }
     }
+
+    // Storage Service
+    async uploadFile(file)
+    {
+        try{
+            return await this.bucket.createFile(
+                conf.appwriteBucketId,
+                ID.unique(),
+                file,
+            );
+        }
+        catch(Error)
+        {
+            console.log("Error occur while uploading a file :: uploadFile() :: ", Error);
+        }
+    }
+
+    async deleteFile(fileId)
+    {
+        try
+        {
+            return await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
+        }
+        catch(Error)
+        {
+            console.log("Error occur while deleting a file :: deleteFile() :: ", Error);
+        }
+    }
+
+    filePreview(fileId)
+    {
+        try
+        {
+            return this.bucket.getFilePreview(
+                conf.appwriteBucketId,
+                fileId,
+            ).href;
+        }
+        catch(Error)
+        {
+            console.log("Error occur while getting a preview of a file :: filePreview() :: ", Error);
+        }
+    }
 }
 
+const service = new Service();
+
+export default service;
