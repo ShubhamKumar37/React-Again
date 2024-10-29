@@ -78,6 +78,7 @@ const PostForm = ({ post }) => {
           label="Title"
           placeholder="Title"
           className="mb-4"
+          {...register("title", {required: true})}
         />
 
         <Input
