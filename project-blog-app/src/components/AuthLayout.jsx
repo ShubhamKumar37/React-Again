@@ -6,6 +6,7 @@ import Loader from './Loader';
 const Protected = ({children, authentication = true}) => {
 
     const logStatus = useSelector((state) => state.auth.status);
+    console.log("logStatus = ", logStatus); 
     const navigate = useNavigate();
     const [loader, setLoader] = useState(true);
 

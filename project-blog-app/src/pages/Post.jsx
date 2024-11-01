@@ -23,7 +23,7 @@ const Post = () => {
       service.getPost(slug).then((post) =>
       {
         setPost(post);
-        navigate("/");
+        // navigate("/");
       })
     }
   }, [navigate, slug]);

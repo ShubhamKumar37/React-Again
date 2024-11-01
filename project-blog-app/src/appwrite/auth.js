@@ -1,4 +1,4 @@
-import { Client, Account} from "appwrite";
+import { Client, Account, ID} from "appwrite";
 import config from "../conf/conf";
 
 
@@ -16,7 +16,8 @@ class Auth_Service
     async createAccount({email, password}) {
         try
         {
-            const response = await this.account.create(ID.unique(), email);
+            console.log("Email and password = ", email, password);
+            const response = await this.account.create(ID.unique(), email, password);
             console.log("After creating a account the response is = ", response);
 
             if(response)
@@ -30,7 +31,7 @@ class Auth_Service
         }
         catch(Error)
         {
-            console.log("Error occur while creating a account");
+            console.log("Error occur while creating a account", Error);
             throw Error;
         }
     }
@@ -38,7 +39,7 @@ class Auth_Service
     async loginAccount({email, password}) {
         try
         {
-            return await account.createEmailPasswordSession(email, password);
+            return await this.account.createEmailPasswordSession(email, password);
         }
         catch(Error)
         {

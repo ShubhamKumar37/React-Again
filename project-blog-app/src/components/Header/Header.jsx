@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Container from '../Container/Container';
 import LogoutBtn from './LogoutBtn';
 
@@ -44,11 +44,11 @@ const Header = () => {
                 <div>
                     <Link to='/'>
                         {/* <Logo /> */}
-                        <img src='https://res.cloudinary.com/dtxu5ha3c/image/upload/v1721330403/Certification/32ecca85-3495-49aa-afa2-cc1b07003fd9.png' alt='Logo'></img>
+                        <img src='https://res.cloudinary.com/dtxu5ha3c/image/upload/v1721330403/Certification/32ecca85-3495-49aa-afa2-cc1b07003fd9.pn' alt='Logo' width={100} height={50}></img>
                     </Link>
                 </div>
 
-                <ul className='ml-auto'>
+                <ul className=' flex ml-auto'>
                     {
                         navItem.map((item, index) => item.active ? 
                         <li key={index}>

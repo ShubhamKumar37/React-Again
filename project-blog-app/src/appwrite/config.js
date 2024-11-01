@@ -1,5 +1,5 @@
 import conf from "../conf/conf";
-import { Client, Databases, ID } from "appwrite";
+import { Client, Databases, Storage, Query, ID } from "appwrite";
 
 
 export class Service{
@@ -18,7 +18,7 @@ export class Service{
     {
         try
         {
-            return await  this.databases.getDocuments(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug);
+            return await  this.databases.getDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug);
         }
         catch(Error)
         {
@@ -26,7 +26,7 @@ export class Service{
         }
     }
 
-    async getPosts(queries = [Queery.equal("status", false)])
+    async getPosts(queries = [Query.equal("status", false)])
     {
         try
         {
@@ -40,15 +40,16 @@ export class Service{
         }
     }
 
-    async createPost({title, slug, content, featuredImage, userId, status = false})
+    async createPost({title, slugs, content, featuredImage, userId, status = false})
     {
         try
         {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug, {
-                    title, content, featuredImage, status, userId, slug,
+                ID.unique(), 
+                {
+                    title, content, featuredImage, status, userId, slugs,
                 }
             )
         }
@@ -124,10 +125,11 @@ export class Service{
     {
         try
         {
-            return this.bucket.getFilePreview(
+            const url = this.bucket.getFilePreview(
                 conf.appwriteBucketId,
                 fileId,
-            ).href;
+            );
+            return url
         }
         catch(Error)
         {

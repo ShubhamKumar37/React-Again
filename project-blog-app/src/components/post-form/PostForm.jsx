@@ -18,7 +18,7 @@ const PostForm = ({ post }) => {
     defaultValues: {
       title: post?.title || "",
       slug: post?.post || "",
-      status: post?.status || "active",
+      status: post?.status || true,
       content: post?.content || ""
     }
   });
@@ -52,6 +52,7 @@ const PostForm = ({ post }) => {
       if(file)
       {
         data.featuredImage = file.$id;
+        data.status = data.status === "active" ? true : false;
         const dbPost = await service.createPost({...data, userId: userData.$id, })
 
         if(dbPost)

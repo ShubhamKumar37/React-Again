@@ -14,7 +14,7 @@ const AllPosts = () => {
       if(posts)
       {
         setPost(posts.documents);
-        console.log(posts.documents);
+        console.log("Posts = ", posts.documents);
       }
     });
   }, []);
@@ -36,7 +36,7 @@ const AllPosts = () => {
     <div className='w-full py-8'>
       <Container>
         <div className='flex flex-wrap'>
-          {posts.map((item) =>(
+          {post.map((item) =>(
             <div className='p-2 w-1/4' key={item?.$id}>
               <PostCard {...item} />
             </div>
