@@ -24,10 +24,6 @@ const PostForm = ({ post }) => {
   });
 
 
-  const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string") return value.trim().toLowerCase().replace(/[^a-zA-z\d\s]+/g, '-').replace(/\s/g, '-');
-  }, []);
-
   const submit = async (data) => {
     if(post)
     {
@@ -65,13 +61,7 @@ const PostForm = ({ post }) => {
     }
   }
 
-  useEffect(() => {
-    watch((value, { name }) => {
-      if (name === 'title') {
-        setValue("slug", slugTransform(value.title), { shouldValidate: true })
-      }
-    })
-  }, [setValue, slugTransform, watch])
+
   return (
     <form onSubmit={handleSubmit(submit)} className='flex flex-wrap'>
       <div className='w-2/3 px-2'>
@@ -80,18 +70,7 @@ const PostForm = ({ post }) => {
           placeholder="Title"
           className="mb-4"
           {...register("title", {required: true})}
-        />
-
-        <Input
-          label="Slug : "
-          placeholder="Slug"
-          className="mb-4"
-          {...register("slug", { required: true })}
-          onInput={(e) => 
-            {
-              setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })
-            }
-          }
+          defaultValue={getValues("title")}
         />
 
         <RTE 
@@ -109,6 +88,7 @@ const PostForm = ({ post }) => {
           accept="image/png, image/jpeg, image/jpg"
           className="mb-4"
           {...register("image", {required: !post})}
+          defaultValue={getValues("image")}
         />
         {
           post && (
@@ -123,6 +103,7 @@ const PostForm = ({ post }) => {
           label="Status"
           className="mb-4"
           {...register("status", {required: true})}
+          defaultValue={getValues("status")}
         />
 
         <Button 

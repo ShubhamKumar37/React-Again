@@ -21,10 +21,12 @@ const Login = () => {
         setError("");
         try
         {
-            const session = await authService.loginAccount(data)
+            const session = await authService.loginAccount(data);
+            console.log("This is logged in user data = ", session);
             if(session)
             {
                 const userData = await authService.getCurrentUser();
+                console.log("This is logged in user data = ", userData);
                 if(userData) dispatch(authLogin({userData}));
 
                 navigate("/");

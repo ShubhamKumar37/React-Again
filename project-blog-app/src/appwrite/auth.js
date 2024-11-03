@@ -39,7 +39,9 @@ class Auth_Service
     async loginAccount({email, password}) {
         try
         {
-            return await this.account.createEmailPasswordSession(email, password);
+            const response = await this.account.createEmailPasswordSession(email, password);
+            console.log("After login the response is = ", response);
+            return response;
         }
         catch(Error)
         {
