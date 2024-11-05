@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import Container from '../Container/Container';
 import LogoutBtn from './LogoutBtn';
+import blogger from "../../../public/blogger.png"
 
 const Header = () => {
 
@@ -38,13 +39,13 @@ const Header = () => {
     ];
 
   return (
-    <header className='py-3 shadow bg-gray-500'>
+    <header className='py-3 shadow bg-[#FF9900] dark:bg-[#FFA07A] dark:text-[#F2F2F2]'>
         <Container>
             <nav className='flex'>
                 <div>
                     <Link to='/'>
                         {/* <Logo /> */}
-                        <img src='https://res.cloudinary.com/dtxu5ha3c/image/upload/v1721330403/Certification/32ecca85-3495-49aa-afa2-cc1b07003fd9.pn' alt='Logo' width={100} height={50}></img>
+                        <img src={blogger} alt='Logo' width={50} height={50} className=''></img>
                     </Link>
                 </div>
 
@@ -53,7 +54,7 @@ const Header = () => {
                         navItem.map((item, index) => item.active ? 
                         <li key={index}>
                             <button
-                                className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+                                className='inline-block font-bold px-6 py-2 duration-200 hover:bg-[#FFD700] rounded-full dark:hover:bg-[#fce190] dark:text-[#825959]'
                             onClick={() => navigate(item.slug)}>{item.name}</button>
                         </li>: null)
                     }

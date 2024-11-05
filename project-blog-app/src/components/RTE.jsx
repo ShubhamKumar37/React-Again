@@ -8,7 +8,7 @@ const RTE = ({
     return (
         <div className='w-full'>
             {
-                label && <label className='inline-block mb-1 pl-1'>
+                label && <label className='inline-block mb-1 pl-1 text-orange-400 dark:text-orange-200'>
                     {label}
                 </label>
             }
@@ -31,12 +31,11 @@ const RTE = ({
                                 'bold italic forecolor | alignleft aligncenter ' +
                                 'alignright alignjustify | bullist numlist outdent indent | ' +
                                 'removeformat | help',
-                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; background-color:#1A202C; color:#F7F5F2; }'
                         }}
                         onEditorChange={onChange}
                     />
                 )}
-
             />
         </div>
     )

@@ -22,10 +22,12 @@ const AllPosts = () => {
   if(post.length === 0)
   {
     return (
-      <div className='w-full py-8'>
+      <div className='w-full py-8 flex justify-center items-center'>
       <Container>
-        <div className='flex flex-wrap'>
-          There is no post please come again or try login
+        <div className='flex flex-wrap text-center   rounded-lg p-4'>
+          <span className='text-lg font-medium text-gray-100 dark:text-gray-300'>
+            There is no post please try again later or start your first post
+          </span>
         </div>
       </Container>
     </div>

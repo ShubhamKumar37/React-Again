@@ -25,92 +25,89 @@ const PostForm = ({ post }) => {
 
 
   const submit = async (data) => {
-    if(post)
-    {
-      const file = data.image[0] ? await service.uploadFile(data.image[0]): null;
+    if (post) {
+      const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
 
-      if(file)
-      {
+      if (file) {
         await service.deleteFile(post.featuredImage);
       }
 
-      const dbPost = await service.updatePost(post.$id, {...data, featuredImage: file ? file.$id : undefined});
+      const dbPost = await service.updatePost(post.$id, { ...data, featuredImage: file ? file.$id : undefined });
 
-      if(dbPost)
-      {
+      if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     }
-    else
-    {
-     const file = await service.uploadFile(data.image[0]);
+    else {
+      const file = await service.uploadFile(data.image[0]);
 
-      if(file)
-      {
+      if (file) {
         data.featuredImage = file.$id;
         data.status = data.status === "active" ? true : false;
-        const dbPost = await service.createPost({...data, userId: userData.$id, })
+        const dbPost = await service.createPost({ ...data, userId: userData.$id, })
 
-        if(dbPost)
-        {
+        if (dbPost) {
           navigate(`/post/${dbPost.$id}`)
         }
       }
 
-      
+
     }
   }
 
 
   return (
-    <form onSubmit={handleSubmit(submit)} className='flex flex-wrap'>
-      <div className='w-2/3 px-2'>
+    <form onSubmit={handleSubmit(submit)} className='flex flex-wrap gap-4'>
+      <div className='w-full md:w-2/3 px-2 space-y-4'>
+        <div className='min-w-[200px]'>
+
         <Input
           label="Title"
           placeholder="Title"
           className="mb-4"
-          {...register("title", {required: true})}
+          {...register("title", { required: true })}
           defaultValue={getValues("title")}
-        />
+          />
+          </div>
 
-        <RTE 
-          label={"Content : "} 
+        <RTE
+          label={"Content : "}
           name={"content"}
           control={control}
           defaultValue={getValues("content")}
         />
       </div>
 
-      <div className='1/3 px-2'>
-        <Input 
+      <div className='w-full md:w-1/3 px-2 space-y-4'>
+        <Input
           label="Featured Image : "
           type="file"
           accept="image/png, image/jpeg, image/jpg"
           className="mb-4"
-          {...register("image", {required: !post})}
+          {...register("image", { required: !post })}
           defaultValue={getValues("image")}
         />
-        {
-          post && (
-            <div>
-              <img src={service.filePreview(post.featuredImage)} alt={post.title} className='rounded-lg'></img>
-            </div>
-          )
-        }
+        {post && (
+          <div className="mb-4">
+            <img src={service.filePreview(post.featuredImage)} alt={post.title} className='rounded-lg' height={200} width={200} />
+          </div>
+        )}
 
         <Select
           options={["active", "inactive"]}
           label="Status"
           className="mb-4"
-          {...register("status", {required: true})}
+          {...register("status", { required: true })}
           defaultValue={getValues("status")}
         />
 
-        <Button 
+        <Button
           type='submit'
           bgColor={post ? "bg-green-500" : undefined}
           className='w-full'
-        > {post ? "Update": "Submit"}</Button>
+        >
+          {post ? "Update" : "Submit"}
+        </Button>
       </div>
     </form>
   )

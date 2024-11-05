@@ -23,15 +23,15 @@ function App() {
   }, [dispatch]);
 
   return !loading ?  (
-    <div>
-      <div>
+    <div className="min-h-screen flex flex-col bg-[#1A202C] text-white">
+      <div className="flex flex-1 flex-col">
         <Header />
-        <main>
+        <main className="flex flex-col justify-center p-4 min-h-[40rem]">
           <Outlet />
         </main>
       </div>
 
-      <div>
+      <div className="">
         <Footer />
       </div>
 
