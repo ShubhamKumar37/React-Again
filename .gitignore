@@ -24,3 +24,4 @@ dist-ssr
 *.sln
 *.sw?
 project-blog-app/.env
+shadcn-app/src/utils/firebase.utils.js

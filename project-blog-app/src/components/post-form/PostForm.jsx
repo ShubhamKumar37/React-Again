@@ -14,7 +14,7 @@ const PostForm = ({ post }) => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
-  const { register, getValues, setValue, watch, control, handleSubmit } = useForm({
+  const { register, getValues, control, handleSubmit } = useForm({
     defaultValues: {
       title: post?.title || "",
       slug: post?.post || "",
